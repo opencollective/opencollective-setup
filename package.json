@@ -15,7 +15,10 @@
     "prepare": "npm run build",
     "lint": "eslint \"src/**/*.js\"",
     "lint:fix": "npm run lint -- --fix",
-    "lint:quiet": "npm run lint -- --quiet"
+    "lint:quiet": "npm run lint -- --quiet",
+    "prettier": "prettier \"*.json\" \"src/**/*\" \"test/**/*\"",
+    "prettier:write": "npm run prettier -- --write",
+    "prettier:check": "npm run prettier -- --list-different"
   },
   "bin": {
     "opencollective-setup": "./dist/bin/opencollective-setup.js"
@@ -58,7 +61,8 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-react": "^7.12.4",
-    "mocha": "5.2.0"
+    "mocha": "5.2.0",
+    "prettier": "^1.16.4"
   },
   "collective": {
     "type": "opencollective",

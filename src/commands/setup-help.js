@@ -30,9 +30,13 @@ ${chalk.gray('–')} Add backers/sponsors to your README
 
     ${chalk.cyan('$ opencollective-setup setup:readme')}
 
-${chalk.gray('–')} Add the donate message in the PULL_REQUEST_TEMPLATE.md of the project:
+${chalk.gray(
+  '–',
+)} Add the donate message in the PULL_REQUEST_TEMPLATE.md of the project:
 
-    ${chalk.cyan('$ opencollective-setup setup:template -f PULL_REQUEST_TEMPLATE.md')}
+    ${chalk.cyan(
+      '$ opencollective-setup setup:template -f PULL_REQUEST_TEMPLATE.md',
+    )}
 
-`
+`,
 );
