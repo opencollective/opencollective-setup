@@ -12,35 +12,10 @@ import 'babel-polyfill';
 import { resolve } from 'path';
 
 // This command will be run if no other sub command is specified
-const defaultCommand = 'collective';
+const defaultCommand = 'setup';
 
 const commands = new Set([
-  'help',
-  'info',
-  'stats',
-  'list',
-  'donate',
-  'ls',
-  'rm',
-  'remove',
-  'cc',
-  'billing',
-  'show',
-  'open',
-  'postinstall',
   'setup',
-  'slack',
-  'support',
-  'email',
-  'twitter'
-]);
-
-const aliases = new Map([
-  ['ls', 'list'],
-  ['rm', 'remove'],
-  ['cc', 'billing'],
-  ['info', 'collective'],
-  ['stats', 'collective']
 ]);
 
 let cmd = defaultCommand;
@@ -60,8 +35,6 @@ if (index > -1) {
 
     args.unshift('--help');
   }
-
-  cmd = aliases.get(cmd) || cmd;
 }
 
 const bin = resolve(__dirname, '../commands/', cmd + '.js');

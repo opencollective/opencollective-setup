@@ -8,8 +8,8 @@ import fetch from 'node-fetch';
 
 import { debug, error, getPackageJSON, readJSONFile, getCollective } from '../lib/utils';
 import { writeJSONFile } from '../lib/write';
-import { updateReadme } from '../lib/updateReadme'; 
-import { updateTemplate } from '../lib/updateTemplate'; 
+import { updateReadme } from '../lib/updateReadme';
+import { updateTemplate } from '../lib/updateTemplate';
 import { addPostInstall } from '../lib/addPostInstall';
 
 let projectPath = '.';
@@ -37,11 +37,11 @@ const fork = (org, repo, github_token) => {
 }
 
 const submitPullRequest = (org, repo, projectPath, github_token) => {
-  
+
   let body = `Hi, I'm making updates for Open Collective. Either you or a supporter signed this repo up for Open Collective. This pull request adds backers and sponsors from your Open Collective https://opencollective.com/${repo} ❤️
-  
+
   It adds two badges at the top to show the latest number of backers and sponsors. It also adds placeholders so that the avatar/logo of new backers/sponsors can automatically be shown without having to update your README.md. [[more info](https://github.com/opencollective/opencollective/wiki/Github-banner)]. See how it looks on [this repo](https://github.com/apex/apex#backers).`;
-  
+
   execSync(`git add README.md && git commit -m "Added backers and sponsors on the README" || exit 0`, { cwd: projectPath });
   if (pkg) {
     execSync(`git add package.json && git commit -m "Added call to donate after npm install (optional)" || exit 0`, { cwd: projectPath });
@@ -103,7 +103,7 @@ const loadProject = (argv) => {
           github_token = answers.github_token;
           if (!github_token) {
             error("Github token missing. Get one on https://github.com/settings/tokens and pass it using the --github_token argument.");
-            process.exit(0);          
+            process.exit(0);
           }
           if (github_token.length != 40) {
             error("Invalid Github Token (should be 40 chars long)");
@@ -148,7 +148,7 @@ const loadPackageJSON = () => {
     debug("Open Collective already configured 👌");
     process.exit(0);
   }
-  
+
 }
 
 const askQuestions = function(interactive) {
