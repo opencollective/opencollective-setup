@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Yes, this is totally copied from
  * https://github.com/zeit/now-cli/blob/b1663954fe935beb0244002625e05402f59bd20e/bin/now.js
