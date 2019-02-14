@@ -12,7 +12,10 @@
     "clean": "rm -rf dist && rm -rf test/*package*/node_modules && git checkout test/*package*/ || exit 0",
     "build": "babel --copy-files -d dist/ src/",
     "watch": "babel -w --copy-files -d dist/ src/",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "lint": "eslint \"src/**/*.js\"",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:quiet": "npm run lint -- --quiet"
   },
   "bin": {
     "opencollective-setup": "./dist/bin/opencollective-setup.js"
@@ -43,11 +46,18 @@
   "devDependencies": {
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
+    "babel-eslint": "^10.0.1",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
     "babel-register": "6.26.0",
     "chai": "4.2.0",
     "cross-env": "5.2.0",
+    "eslint": "^5.13.0",
+    "eslint-config-opencollective": "^1.5.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-react": "^7.12.4",
     "mocha": "5.2.0"
   },
   "collective": {

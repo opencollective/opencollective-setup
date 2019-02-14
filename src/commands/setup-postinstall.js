@@ -4,4 +4,4 @@ import path from 'path';
 
 const collective = getCollective();
 
-addPostInstall(path.join(process.cwd(), "package.json"), collective)
+addPostInstall(path.join(process.cwd(), 'package.json'), collective);

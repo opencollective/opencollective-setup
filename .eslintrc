@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "opencollective"
+  ],
+  "rules": {
+    "no-console": "warn",
+    "no-process-exit": "warn"
+  }
+}

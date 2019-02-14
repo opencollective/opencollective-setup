@@ -3,7 +3,7 @@ import { execSync } from 'child_process';
 
 console.log(
   `
-${chalk.bold(`opencollective-setup`)} setup
+${chalk.bold('opencollective-setup')} setup
 
   Setup a collective (from github or in current working directory)
 
@@ -32,7 +32,7 @@ ${chalk.gray('–')} Add backers/sponsors to your README
 
 ${chalk.gray('–')} Add the donate message in the PULL_REQUEST_TEMPLATE.md of the project:
 
-    ${chalk.cyan(`$ opencollective-setup setup:template -f PULL_REQUEST_TEMPLATE.md`)}
+    ${chalk.cyan('$ opencollective-setup setup:template -f PULL_REQUEST_TEMPLATE.md')}
 
 `
 );

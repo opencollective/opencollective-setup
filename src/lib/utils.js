@@ -11,11 +11,11 @@ export function debug() {
 }
 
 export function error(msg) {
-  console.log("");
+  console.log('');
   print(msg, { cols: msg.length });
-  console.log("");
-  print("¯\\_(ツ)_/¯", { cols: msg.length });
-  console.log("");  
+  console.log('');
+  print('¯\\_(ツ)_/¯', { cols: msg.length });
+  console.log('');
 }
 
 export function isDevEnvironment() {
@@ -30,8 +30,8 @@ export function isFancyEnvironment() {
 }
 
 export function padding(length) {
-  var padding = '';
-  for (var i=0; i<length; i++) {
+  let padding = '';
+  for (let i=0; i<length; i++) {
     padding += ' ';
   }
   return padding;
@@ -45,7 +45,7 @@ export function formatCurrency(amount, currency, precision) {
     style: 'currency',
     currency: currency,
     minimumFractionDigits : precision,
-    maximumFractionDigits : precision
+    maximumFractionDigits : precision,
   });
 }
 
@@ -55,8 +55,8 @@ export const argv = minimist(process.argv.slice(2), {
     slug: 's',
     file: 'f',
     help: 'h',
-    logo: 'l'
-  }
+    logo: 'l',
+  },
 });
 
 export function detectBadge(line) {
@@ -69,25 +69,25 @@ export function readJSONFile(file) {
   try {
     return JSON.parse(fs.readFileSync(file, 'utf8'));
   } catch (e) {
-    debug("Unable to read JSON file ", file);
+    debug('Unable to read JSON file ', file);
     debug(e);
   }
 }
 
 export function getPackageJSON(repoPath = '.') {
   const packageJSONPath = path.join(repoPath, './package.json');
-  debug("Loading ", packageJSONPath);
+  debug('Loading ', packageJSONPath);
   let pkg;
   try {
     return readJSONFile(packageJSONPath);
-  } catch(e) {
-    debug("error while trying to load ./package.json", "cwd:", process.cwd(), e);
+  } catch (e) {
+    debug('error while trying to load ./package.json', 'cwd:', process.cwd(), e);
     return null;
   }
 }
 
 export function getCollectiveSlug() {
-  debug(">>> argv", argv);
+  debug('>>> argv', argv);
   if (argv.collective) return argv.collective;
   if (argv.slug) return argv.slug;
   if (process.env.npm_package_name) return process.env.npm_package_name;
@@ -116,7 +116,7 @@ export function getCollective() {
     }
   }
 
-  debug(">>> collective", collective);
+  debug('>>> collective', collective);
   return collective;
 }
 
@@ -126,6 +126,6 @@ export function getArgs() {
   for (const i in arguments) {
     args[arguments[i]] = argv._[i];
   }
-  debug(">>> args", args);
+  debug('>>> args', args);
   return args;
 }

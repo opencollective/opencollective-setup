@@ -5,4 +5,4 @@ import path from 'path';
 const collective = getCollective();
 const argv = getArgs();
 
-updateTemplate(path.join(process.cwd(), ".github", argv.file || "ISSUE_TEMPLATE.md"), { slug: collective.slug });
+updateTemplate(path.join(process.cwd(), '.github', argv.file || 'ISSUE_TEMPLATE.md'), { slug: collective.slug });

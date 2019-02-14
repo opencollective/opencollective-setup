@@ -11,8 +11,8 @@ export function writeJSONFile(file, json) {
   try {
     const indent = detectIndent(fileContent).indent || '  ';
     fs.writeFileSync(file, JSON.stringify(json, null, indent));
-  } catch(e) {
-    debug("Unable to write JSON file", file);
+  } catch (e) {
+    debug('Unable to write JSON file', file);
     debug(e);
   }
 }

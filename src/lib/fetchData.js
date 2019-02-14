@@ -6,50 +6,50 @@ const fetch = require('node-fetch');
 const fetchStats = function(collectiveUrl) {
   const url = `${collectiveUrl}.json`;
   return fetch(url, { timeout: 1500 })
-  .then(function(res) {
+  .then((res) => {
     return res.json();
   })
-  .then(function(json) {
+  .then((json) => {
     return {
       currency: json.currency,
       balance: json.balance,
       yearlyIncome: json.yearlyIncome,
       backersCount: json.backersCount,
-      contributorsCount: json.contributorsCount
+      contributorsCount: json.contributorsCount,
     };
   })
-  .catch(function(e) {
+  .catch((e) => {
     const collectiveSlug = collectiveUrl.substr(collectiveUrl.lastIndexOf('/')+1);
-    console.error(`${chalk.red(`[server error]`)} Cannot load the stats for ${collectiveSlug} – please try again later`);
-    debug("Error while fetching ", url);
+    console.error(`${chalk.red('[server error]')} Cannot load the stats for ${collectiveSlug} – please try again later`);
+    debug('Error while fetching ', url);
   });
-}
+};
 
 const fetchBanner = function(slug) {
   const url = `https://opencollective.com/${slug}/banner.md`;
   return fetch(url)
-    .then(function(res) {
+    .then((res) => {
       return res.text();
     })
-    .catch(function(e) {
-      debug("Error while fetching ", url);
+    .catch((e) => {
+      debug('Error while fetching ', url);
     });
-}
+};
 
 const fetchLogo = function(logoUrl) {
   if (!logoUrl.match(/^https?:\/\//)) {
-    return "";
+    return '';
   }
   return fetch(logoUrl, { timeout: 1500 })
-    .then(function(res) {
+    .then((res) => {
       if (res.status === 200 && res.headers.get('content-type').match(/^text\/plain/)) return res.text();
-      else return "";
+      else return '';
     })
-    .catch(function(e) {
-      debug("Error while fetching ", logoUrl);
+    .catch((e) => {
+      debug('Error while fetching ', logoUrl);
     });
-}
+};
 
 module.exports = {
-  fetchLogo, fetchStats, fetchBanner
+  fetchLogo, fetchStats, fetchBanner,
 };

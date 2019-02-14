@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 
 /**
  * Yes, this is totally copied from
@@ -37,7 +36,7 @@ if (index > -1) {
   }
 }
 
-const bin = resolve(__dirname, '../commands/', cmd + '.js');
+const bin = resolve(__dirname, '../commands/', `${cmd  }.js`);
 
 // Prepare process.argv for subcommand
 process.argv = process.argv.slice(0, 2).concat(args);

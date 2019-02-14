@@ -9,22 +9,22 @@ export function updateTemplate(filepath, data) {
     let template, projectTemplate, newFile = true;
     let templateFilename = path.basename(filepath);
 
-    if (["CONTRIBUTING.md", "ISSUE_TEMPLATE.md", "PULL_REQUEST_TEMPLATE.md"].indexOf(templateFilename) === -1) {
-      return error(`[-f FILE] must be CONTRIBUTING.md, ISSUE_TEMPLATE.md or PULL_REQUEST_TEMPLATE.md (defaults to ISSUE_TEMPLATE.md)`);
+    if (['CONTRIBUTING.md', 'ISSUE_TEMPLATE.md', 'PULL_REQUEST_TEMPLATE.md'].indexOf(templateFilename) === -1) {
+      return error('[-f FILE] must be CONTRIBUTING.md, ISSUE_TEMPLATE.md or PULL_REQUEST_TEMPLATE.md (defaults to ISSUE_TEMPLATE.md)');
     }
 
-    debug("filepath", filepath);
-    debug("data", data);
-    debug("mkdir", path.dirname(filepath));
+    debug('filepath', filepath);
+    debug('data', data);
+    debug('mkdir', path.dirname(filepath));
     fs.mkdir(path.dirname(filepath), () => {
       try {
-        projectTemplate = fs.readFileSync(filepath, "utf8");
+        projectTemplate = fs.readFileSync(filepath, 'utf8');
       } catch (e) {
         debug(e);
-        projectTemplate = projectTemplate || "";
+        projectTemplate = projectTemplate || '';
       }
 
-      if (projectTemplate.indexOf("https://opencollective.com/" + data.slug) !== -1) {
+      if (projectTemplate.indexOf(`https://opencollective.com/${  data.slug}`) !== -1) {
         const errormsg = `Looks like you already have Open Collective added to your ${templateFilename}`;
         error(errormsg);
         return reject(new Error(errormsg));
@@ -32,7 +32,7 @@ export function updateTemplate(filepath, data) {
 
       console.log(`> Updating ${templateFilename}`);
 
-      // If there is already a project template (e.g. CONTRIBUTING.md), 
+      // If there is already a project template (e.g. CONTRIBUTING.md),
       // we see if there is a _APPEND version of the template (e.g. templates/CONTRIBUTING_APPEND.md)
       if (projectTemplate && projectTemplate.length > 0) {
         newFile = false;
@@ -45,20 +45,19 @@ export function updateTemplate(filepath, data) {
       }
 
       const templateFilepath = path.join(__dirname, `../templates/${templateFilename}`);
-      template = fs.readFileSync(templateFilepath, "utf8");
+      template = fs.readFileSync(templateFilepath, 'utf8');
       template = template.replace(/{{([^}]+)}}/g, (str, attr) => data[attr]);
 
-      const lines = projectTemplate.split("\n");
+      const lines = projectTemplate.split('\n');
       lines.push(template);
       debug(template);
-      const fileContent = lines.join("\n").trim();
-      fs.writeFile(filepath, fileContent, { encoding: "utf8" }, (err) => {
+      const fileContent = lines.join('\n').trim();
+      fs.writeFile(filepath, fileContent, { encoding: 'utf8' }, (err) => {
         if (err) return reject(err);
         return resolve({ newFile, content: fileContent, filepath, filename: path.basename(filepath) });
       });
     });
   });
-
 
 
 }
