@@ -31,24 +31,24 @@
   },
   "homepage": "https://github.com/opencollective/opencollective-setup#readme",
   "dependencies": {
-    "babel-polyfill": "6.23.0",
-    "chalk": "1.1.3",
+    "babel-polyfill": "6.26.0",
+    "chalk": "2.4.2",
     "detect-indent": "5.0.0",
-    "inquirer": "3.0.6",
+    "inquirer": "6.2.2",
     "minimist": "1.2.0",
-    "node-fetch": "1.6.3",
-    "opn": "4.0.2",
+    "node-fetch": "2.3.0",
+    "opn": "5.4.0",
     "opencollective": "^1.0.3"
   },
   "devDependencies": {
-    "babel-cli": "6.24.1",
-    "babel-core": "6.24.1",
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.3",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
-    "babel-register": "6.14.0",
-    "chai": "3.5.0",
-    "cross-env": "4.0.0",
-    "mocha": "3.2.0"
+    "babel-register": "6.26.0",
+    "chai": "4.2.0",
+    "cross-env": "5.2.0",
+    "mocha": "5.2.0"
   },
   "collective": {
     "type": "opencollective",
