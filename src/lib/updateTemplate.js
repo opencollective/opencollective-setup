@@ -1,7 +1,9 @@
+import debug from 'debug';
 import path from 'path';
 import fs from 'fs';
-import { debug, error, getArgs, getCollective } from '../lib/utils';
-import { print } from '../lib/print';
+import { error } from '../lib/utils';
+
+const debugUpdateTemplate = debug('opencollective-setup:updateTemplate');
 
 export function updateTemplate(filepath, data) {
   return new Promise((resolve, reject) => {
@@ -22,14 +24,15 @@ export function updateTemplate(filepath, data) {
       );
     }
 
-    debug('filepath', filepath);
-    debug('data', data);
-    debug('mkdir', path.dirname(filepath));
+    debugUpdateTemplate(`filepath: ${filepath}`);
+    debugUpdateTemplate(`data: ${data}`);
+    debugUpdateTemplate(`mkdir: ${path.dirname(filepath)}`);
+
     fs.mkdir(path.dirname(filepath), () => {
       try {
         projectTemplate = fs.readFileSync(filepath, 'utf8');
       } catch (e) {
-        debug(e);
+        debugUpdateTemplate(e);
         projectTemplate = projectTemplate || '';
       }
 
@@ -68,7 +71,7 @@ export function updateTemplate(filepath, data) {
 
       const lines = projectTemplate.split('\n');
       lines.push(template);
-      debug(template);
+      debugUpdateTemplate(template);
       const fileContent = lines.join('\n').trim();
       fs.writeFile(filepath, fileContent, { encoding: 'utf8' }, err => {
         if (err) return reject(err);

@@ -7,6 +7,10 @@
     "type": "git",
     "url": "git+https://github.com/opencollective/opencollective-setup.git"
   },
+  "engines": {
+    "node": "11.8.0",
+    "npm": "6.5.0"
+  },
   "scripts": {
     "test": "npm run clean && npm run build && test/run_tests.sh",
     "clean": "rm -rf dist && rm -rf test/*package*/node_modules && git checkout test/*package*/ || exit 0",
@@ -39,12 +43,13 @@
   "dependencies": {
     "babel-polyfill": "6.26.0",
     "chalk": "2.4.2",
+    "debug": "4.1.1",
     "detect-indent": "5.0.0",
     "inquirer": "6.2.2",
     "minimist": "1.2.0",
     "node-fetch": "2.3.0",
-    "opn": "5.4.0",
-    "opencollective": "^1.0.3"
+    "opencollective": "^1.0.3",
+    "opn": "5.4.0"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",

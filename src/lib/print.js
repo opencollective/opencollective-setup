@@ -15,7 +15,7 @@ export function getDonateURL(collective) {
     if (collective_suggested_donation_interval) {
       donate_url += `/${collective_suggested_donation_interval}`;
     }
-    donate_url += npm_config_user_agent.match(/yarn/) ? '/yarn' : '/npm';
+    donate_url += user_agent.match(/yarn/) ? '/yarn' : '/npm';
   } else {
     donate_url += '/donate';
   }

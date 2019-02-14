@@ -1,6 +1,9 @@
+import debug from 'debug';
 import path from 'path';
 import fs from 'fs';
-import { error, debug, detectBadge } from '../lib/utils';
+import { error, detectBadge } from '../lib/utils';
+
+const debugUpdateReadme = debug('opencollective-setup:updateReadme');
 
 export function updateReadme(filepath, collective) {
   const templateFile = path.join(__dirname, '../templates/README.md');
@@ -21,7 +24,7 @@ export function updateReadme(filepath, collective) {
     readme = fs.readFileSync(filepath, 'utf8');
   } catch (e) {
     console.log('> Unable to open your README.md file');
-    debug(e);
+    debugUpdateReadme(e);
     return Promise.reject(e);
   }
 
@@ -62,7 +65,7 @@ export function updateReadme(filepath, collective) {
       if (line.match(/<img src/i)) {
         line = line.replace(/<img src/i, `${badgeshtml} <img src`);
       } else {
-        line = line.replace(/(\[!|\!\[)/i, `${badgesmd} $1`);
+        line = line.replace(/(\[!|!\[)/i, `${badgesmd} $1`);
       }
     }
 

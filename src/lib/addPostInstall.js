@@ -1,7 +1,9 @@
-import path from 'path';
-import fs from 'fs';
-import { debug, error, readJSONFile } from '../lib/utils';
+import debug from 'debug';
+
+import { readJSONFile } from '../lib/utils';
 import { writeJSONFile } from '../lib/write';
+
+const debugAddPostInstall = debug('opencollective-setup:addPostInstall');
 
 export function addPostInstall(projectPackageJSON, collective) {
   const pkg = readJSONFile(projectPackageJSON);
@@ -41,7 +43,7 @@ export function addPostInstall(projectPackageJSON, collective) {
     pkg.dependencies = pkg.dependencies || {};
     pkg.dependencies['opencollective-postinstall'] = '^2.0.0';
   }
-  debug('Writing to package.json', {
+  debugAddPostInstall('Writing to package.json', {
     collective: pkg.collective,
     scripts: pkg.scripts,
   });

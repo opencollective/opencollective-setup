@@ -1,22 +1,18 @@
+import debug from 'debug';
 import fs from 'fs';
 import path from 'path';
-import { spawn, execSync, existsSync } from 'child_process';
+import { execSync } from 'child_process';
 import minimist from 'minimist';
-import opn from 'opn';
 import inquirer from 'inquirer';
 import fetch from 'node-fetch';
 
-import {
-  debug,
-  error,
-  getPackageJSON,
-  readJSONFile,
-  getCollective,
-} from '../lib/utils';
+import { error, getPackageJSON, readJSONFile } from '../lib/utils';
 import { writeJSONFile } from '../lib/write';
 import { updateReadme } from '../lib/updateReadme';
 import { updateTemplate } from '../lib/updateTemplate';
 import { addPostInstall } from '../lib/addPostInstall';
+
+const debugSetup = debug('opencollective-setup:setup');
 
 let projectPath = '.';
 let org, repo;
@@ -151,7 +147,7 @@ const loadProject = argv => {
         { cwd: path.resolve('/tmp') },
       );
     } catch (e) {
-      debug('error in git clone', e);
+      debugSetup('error in git clone', e);
     }
 
     if (fs.existsSync(path.join(projectPath, 'package.json'))) {
@@ -171,10 +167,10 @@ const loadPackageJSON = () => {
   pkg = getPackageJSON(projectPath);
 
   if (!pkg) {
-    debug('Cannot load the `package.json` of your project');
+    debugSetup('Cannot load the `package.json` of your project');
     return null;
   } else if (pkg.collective && pkg.collective.url) {
-    debug('Open Collective already configured 👌');
+    debugSetup('Open Collective already configured 👌');
     process.exit(0);
   }
 };
@@ -288,7 +284,7 @@ loadProject(argv)
     if (!process.env.DEBUG && !argv.interactive) {
       // Make sure it had the time to write the files to disk
       // TODO: Turn the updateTemplate, updateReadme into promises to avoid this hack
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
         setTimeout(resolve, 1000);
       });
     }
@@ -327,7 +323,7 @@ loadProject(argv)
     return process.exit(0);
   })
   .catch(e => {
-    debug(
+    debugSetup(
       'Error while trying to fetch the open collective logo or running the prompt',
       e,
     );

@@ -1,14 +1,11 @@
+import debug from 'debug';
 import fs from 'fs';
-import chalk from 'chalk';
 import minimist from 'minimist';
 import path from 'path';
+
 import { print } from './print';
 
-export function debug() {
-  if (process.env.DEBUG) {
-    console.log.apply(this, arguments);
-  }
-}
+const debugUtils = debug('opencollective-setup:utils');
 
 export function error(msg) {
   console.log('');
@@ -86,19 +83,18 @@ export function readJSONFile(file) {
   try {
     return JSON.parse(fs.readFileSync(file, 'utf8'));
   } catch (e) {
-    debug('Unable to read JSON file ', file);
-    debug(e);
+    debugUtils('Unable to read JSON file ', file);
+    debugUtils(e);
   }
 }
 
 export function getPackageJSON(repoPath = '.') {
   const packageJSONPath = path.join(repoPath, './package.json');
-  debug('Loading ', packageJSONPath);
-  let pkg;
+  debugUtils('Loading ', packageJSONPath);
   try {
     return readJSONFile(packageJSONPath);
   } catch (e) {
-    debug(
+    debugUtils(
       'error while trying to load ./package.json',
       'cwd:',
       process.cwd(),
@@ -109,7 +105,7 @@ export function getPackageJSON(repoPath = '.') {
 }
 
 export function getCollectiveSlug() {
-  debug('>>> argv', argv);
+  debugUtils('>>> argv', argv);
   if (argv.collective) return argv.collective;
   if (argv.slug) return argv.slug;
   if (process.env.npm_package_name) return process.env.npm_package_name;
@@ -142,7 +138,7 @@ export function getCollective() {
     }
   }
 
-  debug('>>> collective', collective);
+  debugUtils('>>> collective', collective);
   return collective;
 }
 
@@ -152,6 +148,6 @@ export function getArgs() {
   for (const i in arguments) {
     args[arguments[i]] = argv._[i];
   }
-  debug('>>> args', args);
+  debugUtils('>>> args', args);
   return args;
 }
