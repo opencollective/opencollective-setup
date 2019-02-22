@@ -1,6 +1,6 @@
 # Open Collective Setup
 
-[![npm version](https://img.shields.io/npm/v/opencollective-setup.svg)](https://www.npmjs.com/package/opencollective-setup)
+[![npm version](https://img.shields.io/npm/v/opencollective-setup.svg)](https://www.npmjs.com/package/opencollective-setup) [![Greenkeeper badge](https://badges.greenkeeper.io/opencollective/opencollective-setup.svg)](https://greenkeeper.io/)
 
 CLI tool to setup Open Collective in repositories
 
