@@ -2,7 +2,7 @@ import chalk from 'chalk';
 
 console.log(
   `
-${chalk.bold('opencollective-setup')} setup
+${chalk.bold('opencollective-setup')}
 
   Setup a collective (from github or in current working directory)
 

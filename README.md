@@ -1,5 +1,7 @@
 # Open Collective Setup
 
+[![npm version](https://img.shields.io/npm/v/opencollective-setup.svg)](https://www.npmjs.com/package/opencollective-setup)
+
 CLI tool to setup Open Collective in repositories
 
 ## Install
