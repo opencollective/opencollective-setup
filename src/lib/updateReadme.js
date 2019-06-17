@@ -8,16 +8,8 @@ const debugUpdateReadme = debug('opencollective-setup:updateReadme');
 export function updateReadme(filepath, collective) {
   const templateFile = path.join(__dirname, '../templates/README.md');
 
-  const badgesmd = `[![Backers on Open Collective](https://opencollective.com/${
-    collective.slug
-  }/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/${
-    collective.slug
-  }/sponsors/badge.svg)](#sponsors)`;
-  const badgeshtml = `<a href="#backers" alt="sponsors on Open Collective"><img src="https://opencollective.com/${
-    collective.slug
-  }/backers/badge.svg" /></a> <a href="#sponsors" alt="Sponsors on Open Collective"><img src="https://opencollective.com/${
-    collective.slug
-  }/sponsors/badge.svg" /></a>`;
+  const badgesmd = `[![Backers on Open Collective](https://opencollective.com/${collective.slug}/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/${collective.slug}/sponsors/badge.svg)](#sponsors)`;
+  const badgeshtml = `<a href="#backers" alt="sponsors on Open Collective"><img src="https://opencollective.com/${collective.slug}/backers/badge.svg" /></a> <a href="#sponsors" alt="Sponsors on Open Collective"><img src="https://opencollective.com/${collective.slug}/sponsors/badge.svg" /></a>`;
 
   let readme;
   try {
