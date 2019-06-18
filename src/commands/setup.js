@@ -42,13 +42,13 @@ const fork = (org, repo, github_token) => {
 };
 
 const submitPullRequest = (org, repo, projectPath, github_token) => {
-  let body = `Hi, I'm making updates for Open Collective. Either you or a supporter signed this repository up for Open Collective. This pull request adds financial contributors from your Open Collective https://opencollective.com/${repo} ❤️
+  let body = `Hi, I'm making updates for Open Collective. Either you or another core contributor signed this repository up for Open Collective. This pull request adds financial contributors from your Open Collective https://opencollective.com/${repo} ❤️
 
-  What is done:
-  - adding a badge to show the latest number of financial contributors
-  - adding a banner displaying contributors to the project on GitHub
-  - adding a banner displaying all individuals contributing financially on Open Collective
-  - adding a section displaying all organizations contributing financially on Open Collective, with their logo and a link to their website\n`;
+  What it does:
+  - adds a badge to show the latest number of financial contributors
+  - adds a banner displaying contributors to the project on GitHub
+  - adds a banner displaying all individuals contributing financially on Open Collective
+  - adds a section displaying all organizations contributing financially on Open Collective, with their logo and a link to their website\n`;
 
   execSync(
     'git add README.md && git commit -m "Added financial contributors to the README" || exit 0',
@@ -61,7 +61,7 @@ const submitPullRequest = (org, repo, projectPath, github_token) => {
       { cwd: projectPath },
     );
     body +=
-      '\nWe have also added a `postinstall` script to let people know after `npm|yarn install` that you are welcoming donations. [[More info](https://github.com/opencollective/opencollective-postinstall)]\n';
+      '\nWe have also added a `postinstall` script to let people know after `npm|yarn install` that you are welcoming donations. Feel free to remove it if you don\'t want it. [[More info](https://github.com/opencollective/opencollective-postinstall)]\n';
   }
 
   body += `\nP.S: As with any pull request, feel free to comment or suggest changes.
