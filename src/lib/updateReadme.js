@@ -8,8 +8,8 @@ const debugUpdateReadme = debug('opencollective-setup:updateReadme');
 export function updateReadme(filepath, collective) {
   const templateFile = path.join(__dirname, '../templates/README.md');
 
-  const badgesmd = `[![Backers on Open Collective](https://opencollective.com/${collective.slug}/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/${collective.slug}/sponsors/badge.svg)](#sponsors)`;
-  const badgeshtml = `<a href="#backers" alt="sponsors on Open Collective"><img src="https://opencollective.com/${collective.slug}/backers/badge.svg" /></a> <a href="#sponsors" alt="Sponsors on Open Collective"><img src="https://opencollective.com/${collective.slug}/sponsors/badge.svg" /></a>`;
+  const badgesmd = `[![Financial Contributors on Open Collective](https://opencollective.com/${collective.slug}/all/badge.svg?label=financial+contributors)](https://opencollective.com/${collective.slug})`;
+  const badgeshtml = `<a href="https://opencollective.com/${collective.slug}" alt="Financial Contributors on Open Collective"><img src="https://opencollective.com/${collective.slug}/all/badge.svg?label=financial+contributors" /></a>`;
 
   let readme;
   try {
@@ -22,7 +22,7 @@ export function updateReadme(filepath, collective) {
 
   if (
     readme.indexOf(
-      `https://opencollective.com/${collective.slug}/backers/badge.svg`,
+      `https://opencollective.com/${collective.slug}/all/badge.svg`,
     ) !== -1
   ) {
     error(

@@ -42,31 +42,34 @@ const fork = (org, repo, github_token) => {
 };
 
 const submitPullRequest = (org, repo, projectPath, github_token) => {
-  let body = `Hi, I'm making updates for Open Collective. Either you or a supporter signed this repo up for Open Collective. This pull request adds backers and sponsors from your Open Collective https://opencollective.com/${repo} ❤️
+  let body = `Hi, I'm making updates for Open Collective. Either you or another core contributor signed this repository up for Open Collective. This pull request adds financial contributors from your Open Collective https://opencollective.com/${repo} ❤️
 
-  It adds two badges at the top to show the latest number of backers and sponsors. It also adds placeholders so that the avatar/logo of new backers/sponsors can automatically be shown without having to update your README.md. [[more info](https://github.com/opencollective/opencollective/wiki/Github-banner)]. See how it looks on [this repo](https://github.com/apex/apex#backers).`;
+  What it does:
+  - adds a badge to show the latest number of financial contributors
+  - adds a banner displaying contributors to the project on GitHub
+  - adds a banner displaying all individuals contributing financially on Open Collective
+  - adds a section displaying all organizations contributing financially on Open Collective, with their logo and a link to their website\n`;
 
   execSync(
-    'git add README.md && git commit -m "Added backers and sponsors on the README" || exit 0',
+    'git add README.md && git commit -m "Added financial contributors to the README" || exit 0',
     { cwd: projectPath },
   );
+
   if (pkg) {
     execSync(
       'git add package.json && git commit -m "Added call to donate after npm install (optional)" || exit 0',
       { cwd: projectPath },
     );
     body +=
-      '\nWe have also added a `postinstall` script to let people know after `npm|yarn install` that you are welcoming donations (optional). [[More info](https://github.com/OpenCollective/opencollective-cli)]';
+      '\nWe have also added a `postinstall` script to let people know after `npm|yarn install` that you are welcoming donations. Feel free to remove it if you don\'t want it. [[More info](https://github.com/opencollective/opencollective-postinstall)]\n';
   }
 
-  body += `\nYou can also add a "Donate" button to your website and automatically show your backers and sponsors there with our widgets. Have a look here: https://opencollective.com/widgets
+  body += `\nP.S: As with any pull request, feel free to comment or suggest changes.
 
-  P.S: As with any pull request, feel free to comment or suggest changes. The only thing "required" are the placeholders on the README because we believe it's important to acknowledge the people in your community that are contributing (financially or with code!).
+  Thank you for your great contribution to the Open Source community. You are awesome! 🙌
+  And welcome to the Open Collective community! 😊
 
-  Thank you for your great contribution to the open source community. You are awesome! 🙌
-  And welcome to the open collective community! 😊
-
-  Come chat with us in the #opensource channel on https://slack.opencollective.com - great place to ask questions and share best practices with other open source sustainers!
+  Come chat with us in the #opensource channel on https://slack.opencollective.com - great place to ask questions and share best practices with other Open Source sustainers!
   `;
 
   execSync('git push origin opencollective', { cwd: projectPath });
@@ -226,7 +229,8 @@ const askQuestions = function(interactive) {
 };
 
 const ProcessAnswers = function(answers) {
-  const collective = { slug: answers.collectiveSlug.replace('.', '') }; // defaults to `repo`
+  const slug = answers.collectiveSlug.replace('.', '');
+  const collective = { slug, org, repo };
 
   updateReadme(path.join(projectPath, 'README.md'), collective);
   if (pkg) {
@@ -295,7 +299,7 @@ loadProject(argv)
         {
           type: 'confirm',
           name: 'confirm',
-          message: `Please double check the pull request (cd /tmp/${repo} && git status;)`,
+          message: `Create the Pull Request? (check with \`cd /tmp/${repo} && git status\`)`,
           default: true,
         },
       ])
@@ -309,7 +313,7 @@ loadProject(argv)
   .then(pullRequestUrl => {
     if (pullRequestUrl) {
       console.log('');
-      console.log('Pull request created: ', pullRequestUrl);
+      console.log('Pull Request created: ', pullRequestUrl);
       clean(repo);
     } else {
       console.log('Done.');
