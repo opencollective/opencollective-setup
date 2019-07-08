@@ -182,8 +182,8 @@ const askQuestions = function(interactive) {
   if (!interactive || process.env.OC_POSTINSTALL_TEST) {
     return {
       collectiveSlug: repo || pkg.name,
-      updateIssueTemplate: true,
-      updateContributing: true,
+      updateIssueTemplate: false,
+      updateContributing: false,
       updatePullRequestTemplate: false,
     };
   }
@@ -204,13 +204,13 @@ const askQuestions = function(interactive) {
     {
       type: 'confirm',
       name: 'updateContributing',
-      default: true,
+      default: false,
       message: 'Update CONTRIBUTING.md?',
     },
     {
       type: 'confirm',
       name: 'updateIssueTemplate',
-      default: true,
+      default: false,
       message: 'Update .github/ISSUE_TEMPLATE.md?',
     },
     {
