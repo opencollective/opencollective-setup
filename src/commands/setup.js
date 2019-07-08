@@ -61,7 +61,7 @@ const submitPullRequest = (org, repo, projectPath, github_token) => {
       { cwd: projectPath },
     );
     body +=
-      '\nWe have also added a `postinstall` script to let people know after `npm|yarn install` that you are welcoming donations. Feel free to remove it if you don\'t want it. [[More info](https://github.com/opencollective/opencollective-postinstall)]\n';
+      "\nWe have also added a `postinstall` script to let people know after `npm|yarn install` that you are welcoming donations. Feel free to remove it if you don't want it. [[More info](https://github.com/opencollective/opencollective-postinstall)]\n";
   }
 
   body += `\nP.S: As with any pull request, feel free to comment or suggest changes.
