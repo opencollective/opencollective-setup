@@ -11,6 +11,7 @@ import { writeJSONFile } from '../lib/write';
 import { updateReadme } from '../lib/updateReadme';
 import { updateTemplate } from '../lib/updateTemplate';
 import { addPostInstall } from '../lib/addPostInstall';
+import { addFunding } from '../lib/addFunding';
 
 const debugSetup = debug('opencollective-setup:setup');
 
@@ -231,8 +232,13 @@ const askQuestions = function(interactive) {
 const ProcessAnswers = function(answers) {
   const slug = answers.collectiveSlug.replace('.', '');
   const collective = { slug, org, repo };
-
   updateReadme(path.join(projectPath, 'README.md'), collective);
+  if (
+    !fs.existsSync(path.join(projectPath, '.github', 'FUNDING.yml')) &&
+    !fs.existsSync(path.join(projectPath, '.github', 'funding.yml'))
+  ) {
+    addFunding(path.join(projectPath, '.github', 'FUNDING.yml'), collective);
+  }
   if (pkg) {
     addPostInstall(path.join(projectPath, 'package.json'), collective);
   }
