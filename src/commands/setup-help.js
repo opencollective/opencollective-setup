@@ -17,7 +17,6 @@ ${chalk.dim('Additional commands:')}
 
   setup:readme [-f FILENAME]      Update the README FILENAME (defaults to README.md) with backers/sponsors badge and placeholders
   setup:template [-f FILENAME]    Prepend the default donate message to the template FILENAME (defaults to ISSUE_TEMPLATE.md)
-  setup:postinstall               Add "opencollective-postinstall" as the postinstall script in package.json
 
 ${chalk.dim('Examples:')}
 

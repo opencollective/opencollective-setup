@@ -10,7 +10,6 @@ import { error, getPackageJSON, readJSONFile } from '../lib/utils';
 import { writeJSONFile } from '../lib/write';
 import { updateReadme } from '../lib/updateReadme';
 import { updateTemplate } from '../lib/updateTemplate';
-import { addPostInstall } from '../lib/addPostInstall';
 import { addFunding } from '../lib/addFunding';
 
 const debugSetup = debug('opencollective-setup:setup');
@@ -55,15 +54,6 @@ const submitPullRequest = (org, repo, projectPath, github_token) => {
     'git add README.md && git commit -m "Added financial contributors to the README" || exit 0',
     { cwd: projectPath },
   );
-
-  if (pkg) {
-    execSync(
-      'git add package.json && git commit -m "Added call to donate after npm install (optional)" || exit 0',
-      { cwd: projectPath },
-    );
-    body +=
-      "\nWe have also added a `postinstall` script to let people know after `npm|yarn install` that you are welcoming donations. Feel free to remove it if you don't want it. [[More info](https://github.com/opencollective/opencollective-postinstall)]\n";
-  }
 
   body += `\nP.S: As with any pull request, feel free to comment or suggest changes.
 
@@ -238,9 +228,6 @@ const ProcessAnswers = function(answers) {
     !fs.existsSync(path.join(projectPath, '.github', 'funding.yml'))
   ) {
     addFunding(path.join(projectPath, '.github', 'FUNDING.yml'), collective);
-  }
-  if (pkg) {
-    addPostInstall(path.join(projectPath, 'package.json'), collective);
   }
   if (answers.updateIssueTemplate) {
     updateTemplate(
