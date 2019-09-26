@@ -144,30 +144,11 @@ const loadProject = argv => {
       debugSetup('error in git clone', e);
     }
 
-    if (fs.existsSync(path.join(projectPath, 'package.json'))) {
-      pkg = getPackageJSON(projectPath);
-      if (!pkg.dependencies || !pkg.dependencies.opencollective) {
-        console.log('Running npm install --save opencollective-postinstall');
-        return execSync(
-          `npm install --save opencollective-postinstall >> ${logsFile} 2>&1`,
-          { cwd: projectPath },
-        );
-      }
-    }
+    
   });
 };
 
-const loadPackageJSON = () => {
-  pkg = getPackageJSON(projectPath);
 
-  if (!pkg) {
-    debugSetup('Cannot load the `package.json` of your project');
-    return null;
-  } else if (pkg.collective && pkg.collective.url) {
-    debugSetup('Open Collective already configured 👌');
-    process.exit(0);
-  }
-};
 
 const askQuestions = function(interactive) {
   if (!interactive || process.env.OC_POSTINSTALL_TEST) {
@@ -272,7 +253,6 @@ const ProcessAnswers = function(answers) {
 console.log('');
 
 loadProject(argv)
-  .then(loadPackageJSON)
   .then(() => askQuestions(argv.interactive))
   .then(ProcessAnswers)
   .catch(console.error)
