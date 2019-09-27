@@ -6,7 +6,7 @@ import minimist from 'minimist';
 import inquirer from 'inquirer';
 import fetch from 'node-fetch';
 
-import { error, getPackageJSON, readJSONFile } from '../lib/utils';
+import { error, readJSONFile } from '../lib/utils';
 import { writeJSONFile } from '../lib/write';
 import { updateReadme } from '../lib/updateReadme';
 import { updateTemplate } from '../lib/updateTemplate';
@@ -143,12 +143,8 @@ const loadProject = argv => {
     } catch (e) {
       debugSetup('error in git clone', e);
     }
-
-    
   });
 };
-
-
 
 const askQuestions = function(interactive) {
   if (!interactive || process.env.OC_POSTINSTALL_TEST) {
