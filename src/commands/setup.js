@@ -41,8 +41,8 @@ const fork = (org, repo, github_token) => {
   );
 };
 
-const submitPullRequest = (org, repo, projectPath, github_token) => {
-  let body = `Hi, I'm making updates for Open Collective. Either you or another core contributor signed this repository up for Open Collective. This pull request adds financial contributors from your Open Collective https://opencollective.com/${repo} ❤️
+const submitPullRequest = (org, repo, slug, projectPath, github_token) => {
+  let body = `Hi, I'm making updates for Open Collective. Either you or another core contributor signed this repository up for Open Collective. This pull request adds financial contributors from your Open Collective https://opencollective.com/${slug} ❤️
 
   What it does:
   - adds a badge to show the latest number of financial contributors
@@ -51,7 +51,7 @@ const submitPullRequest = (org, repo, projectPath, github_token) => {
   - adds a section displaying all organizations contributing financially on Open Collective, with their logo and a link to their website\n`;
 
   execSync(
-    'git add README.md && git commit -m "Added financial contributors to the README" || exit 0',
+    'git commit -am "Added financial contributors to the README" || exit 0',
     { cwd: projectPath },
   );
 
@@ -153,6 +153,7 @@ const askQuestions = function(interactive) {
       updateIssueTemplate: false,
       updateContributing: false,
       updatePullRequestTemplate: false,
+      readmeType: "md"
     };
   }
 
@@ -167,6 +168,18 @@ const askQuestions = function(interactive) {
         if (str.match(/^[a-zA-Z\-0-9_]+$/)) return true;
         else
           return 'Please enter a valid slug (e.g. https://opencollective.com/webpack)';
+      },
+    },
+    {
+      type: 'input',
+      name: 'readmeType',
+      message:
+        'What is your readme file extension',
+      default: "md",
+      validate: function(str) {
+        if (str.match(/^[a-zA-Z\-0-9_]+$/)) return true;
+        else
+          return 'Please enter a valid extension';
       },
     },
     {
@@ -199,7 +212,7 @@ const askQuestions = function(interactive) {
 const ProcessAnswers = function(answers) {
   const slug = answers.collectiveSlug.replace('.', '');
   const collective = { slug, org, repo };
-  updateReadme(path.join(projectPath, 'README.md'), collective);
+  updateReadme(path.join(projectPath, 'README.',readmeType), collective);}
   if (
     !fs.existsSync(path.join(projectPath, '.github', 'FUNDING.yml')) &&
     !fs.existsSync(path.join(projectPath, '.github', 'funding.yml'))
@@ -262,7 +275,7 @@ loadProject(argv)
       });
     }
     // if DEBUG or interactive mode, we ask for confirmation
-    execSync('open README.md', { cwd: projectPath });
+    execSync(`open README${readmeType}`, { cwd: projectPath });
     return inquirer
       .prompt([
         {
@@ -276,7 +289,7 @@ loadProject(argv)
   })
   .then(answers => {
     if (argv.repo && (!answers || answers.confirm)) {
-      return submitPullRequest(org, repo, projectPath, github_token);
+      return submitPullRequest(org, repo, slug, projectPath, github_token);
     }
   })
   .then(pullRequestUrl => {
@@ -289,7 +302,7 @@ loadProject(argv)
     }
     console.log('');
     console.log(
-      'Please double check your new updated README.md to make sure everything looks 👌.',
+      'Please double check your new updated README to make sure everything looks 👌.',
     );
     console.log('');
     console.log('Have a great day!');
