@@ -6,16 +6,19 @@ import { error, detectBadge } from '../lib/utils';
 const debugUpdateReadme = debug('opencollective-setup:updateReadme');
 
 export function updateReadme(filepath, collective) {
-  const templateFile = path.join(__dirname, '../templates/README.md');
+  const templateFile = filepath.slice(filepath.lengh -1) == "t" ? path.join(__dirname, '../templates/README.rst') : path.join(__dirname, '../templates/README.md');
 
   const badgesmd = `[![Financial Contributors on Open Collective](https://opencollective.com/${collective.slug}/all/badge.svg?label=financial+contributors)](https://opencollective.com/${collective.slug})`;
   const badgeshtml = `<a href="https://opencollective.com/${collective.slug}" alt="Financial Contributors on Open Collective"><img src="https://opencollective.com/${collective.slug}/all/badge.svg?label=financial+contributors" /></a>`;
+  const badgesrst = `.. image:: https://opencollective.com/${collective.slug}/all/badge.svg?label=financial+contributors
+    :alt: Financial Contributors on Open Collective
+    :target: https://opencollective.com/${collective.slug}`
 
   let readme;
   try {
     readme = fs.readFileSync(filepath, 'utf8');
   } catch (e) {
-    console.log('> Unable to open your README.md file');
+    console.log('> Unable to open your README file');
     debugUpdateReadme(e);
     return Promise.reject(e);
   }
@@ -56,6 +59,8 @@ export function updateReadme(filepath, collective) {
       firstBadgeDetected = true;
       if (line.match(/<img src/i)) {
         line = line.replace(/<img src/i, `${badgeshtml} <img src`);
+      } else if (line.match(/.. image::/i)) {
+        line = line.replace(/.. image::/i,`${badgesrst} .. image::`);
       } else {
         line = line.replace(/(\[!|!\[)/i, `${badgesmd} $1`);
       }
