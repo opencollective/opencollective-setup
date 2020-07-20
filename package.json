@@ -8,8 +8,8 @@
     "url": "git+https://github.com/opencollective/opencollective-setup.git"
   },
   "engines": {
-    "node": "11.8.0",
-    "npm": "6.5.0"
+    "node": ">=11.8.0",
+    "npm": ">=6.5.0"
   },
   "scripts": {
     "test": "npm run clean && npm run build && test/run_tests.sh",
