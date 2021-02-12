@@ -6,7 +6,7 @@ import minimist from 'minimist';
 import inquirer from 'inquirer';
 import fetch from 'node-fetch';
 
-import { error, getPackageJSON, readJSONFile } from '../lib/utils';
+import { error, readJSONFile } from '../lib/utils';
 import { writeJSONFile } from '../lib/write';
 import { updateReadme } from '../lib/updateReadme';
 import { updateTemplate } from '../lib/updateTemplate';
@@ -143,30 +143,7 @@ const loadProject = argv => {
     } catch (e) {
       debugSetup('error in git clone', e);
     }
-
-    if (fs.existsSync(path.join(projectPath, 'package.json'))) {
-      pkg = getPackageJSON(projectPath);
-      if (!pkg.dependencies || !pkg.dependencies.opencollective) {
-        console.log('Running npm install --save opencollective-postinstall');
-        return execSync(
-          `npm install --save opencollective-postinstall >> ${logsFile} 2>&1`,
-          { cwd: projectPath },
-        );
-      }
-    }
   });
-};
-
-const loadPackageJSON = () => {
-  pkg = getPackageJSON(projectPath);
-
-  if (!pkg) {
-    debugSetup('Cannot load the `package.json` of your project');
-    return null;
-  } else if (pkg.collective && pkg.collective.url) {
-    debugSetup('Open Collective already configured 👌');
-    process.exit(0);
-  }
 };
 
 const askQuestions = function(interactive) {
@@ -272,7 +249,6 @@ const ProcessAnswers = function(answers) {
 console.log('');
 
 loadProject(argv)
-  .then(loadPackageJSON)
   .then(() => askQuestions(argv.interactive))
   .then(ProcessAnswers)
   .catch(console.error)
