@@ -68,7 +68,7 @@ const submitPullRequest = (org, repo, projectPath, github_token) => {
     title: 'Activating Open Collective',
     body,
     head: 'opencollective:opencollective',
-    base: 'master',
+    base: 'main',
   };
 
   return fetch(`https://api.github.com/repos/${org}/${repo}/pulls`, {
